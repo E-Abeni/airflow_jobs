@@ -242,11 +242,11 @@ used_ids = []
 
 for match in matches:
     ids = list(match)
-    df_person['personid'].iloc[ids] = f"ENTITY_{entity_id}_{str(uuid.uuid4())}"
+    df_person.iloc[ids, df_person.columns.get_loc('personid')] = f"ENTITY_{entity_id}_{str(uuid.uuid4())}"
     entity_id += 1
     used_ids += ids
 
-df_person['personid'].iloc[~df_person.index.isin(used_ids)] = df_person.apply(lambda row: f"{str(uuid.uuid4())}", axis=1)
+df_person.iloc[~df_person.index.isin(used_ids), df_person.columns.get_loc('personid')] = df_person.iloc[~df_person.index.isin(used_ids)].apply(lambda row: f"ENTITY_{entity_id}_{str(uuid.uuid4())}", axis=1)
 
 #personid_list = [str(uuid.uuid4()) + f"_{i}" if i not in entity_map.keys() else entity_map[i] for i in range(len(df_person))]
 #df_person['personid'] = personid_list
