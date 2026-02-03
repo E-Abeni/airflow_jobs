@@ -252,7 +252,7 @@ df_accounts['accountid'] = df_accounts.apply(lambda row: str(uuid.uuid4()) + f"_
 
 #print(df_person)
 
-df_accounts['ownerentity'] = df_accounts['ownername'].map(df_person.drop_duplicates(subset=['personid'], keep='first').set_index('alias')['personid'])
+df_accounts['ownerentity'] = df_accounts['ownername'].map(df_person.drop_duplicates(subset=['personid', 'alias'], keep='first').set_index('alias')['personid'])
 
 
 # 4. Create Final Identity Resolved Transaction Table
