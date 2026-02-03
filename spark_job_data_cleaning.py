@@ -153,10 +153,10 @@ df['beneficiaryphone'] = df['bentelno'].fillna(df['benisentity']).apply(lambda x
 
 
 # 9. Remove duplicates if any
-df = df.drop_duplicates(subset=['transactionid'], keep='first')
+#df = df.drop_duplicates(subset=['transactionid'], keep='first')
 
 # 10. Handle missing values if any
-df = df.dropna(subset=['transactionid', 'amountinbirr', 'transactiondatetime'])
+#df = df.dropna(subset=['transactionid', 'amountinbirr', 'transactiondatetime'])
 
 
 # 11. Remove any decimal palces in account number columns if any and convert to string
