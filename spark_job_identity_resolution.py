@@ -220,9 +220,10 @@ def clean_matches(matches):
                 if pair not in cleaned and (pair[1], pair[0]) not in cleaned:
                     cleaned.append(pair)
 
+    return cleaned
+
 matches = clean_matches(matches)
 
-print(matches)
 
 G = nx.Graph()
 G.add_edges_from(matches)
