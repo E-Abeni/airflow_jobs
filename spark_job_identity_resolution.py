@@ -222,6 +222,8 @@ def clean_matches(matches):
 
 matches = clean_matches(matches)
 
+print(matches)
+
 G = nx.Graph()
 G.add_edges_from(matches)
 
