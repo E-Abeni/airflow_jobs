@@ -17,7 +17,7 @@ class Database_Connector:
         return self.engine
     
 
-    def get_table_data(self, connection=None, table_name: str = None, limit: int = 10000):
+    def get_table_data(self, connection=None, table_name: str = None, limit: int = 1000000):
         if connection is None:
             connection = self.connection
         if table_name is None:
@@ -41,7 +41,7 @@ class Database_Connector:
         return columns
 
 
-    def get_table_data_selected(self, connection=None, table_name: str = None, selected_columns: list = None, limit: int = 10000):
+    def get_table_data_selected(self, connection=None, table_name: str = None, selected_columns: list = None, limit: int = 1000000):
         if connection is None:
             connection = self.connection
         if selected_columns is None:
@@ -54,7 +54,7 @@ class Database_Connector:
         data = result.fetchall()
         return data
 
-    def get_filtered_data(self, connection=None, table_name: str = None, filter_conditions: dict = None, selected_columns: list = None, limit: int = 10000):
+    def get_filtered_data(self, connection=None, table_name: str = None, filter_conditions: dict = None, selected_columns: list = None, limit: int = 1000000):
         if connection is None:
             connection = self.connection
         if table_name is None:
