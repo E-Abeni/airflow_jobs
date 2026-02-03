@@ -279,7 +279,7 @@ df_transaction = df_transaction.merge(
     left_on='benaccountno', 
     right_on='accountno', 
     how='left'
-).drop(columns=['accountno']).rename(columns={'ownerentity': 'toentity'})
+).rename(columns={'ownerentity': 'toentity'})
 
 
 df_transaction = df_transaction[transaction_columns]
