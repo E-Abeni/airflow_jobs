@@ -23,7 +23,7 @@ class Database_Connector:
         if table_name is None:
             raise ValueError("table_name must be provided")
         
-        query = text(f"SELECT * FROM {table_name} LIMIT {limit}")
+        query = text(f"SELECT * FROM {table_name}")# LIMIT {limit}")
         result = connection.execute(query)
         data = result.fetchall()
         return data
@@ -49,7 +49,7 @@ class Database_Connector:
         if table_name is None:
             raise ValueError("table_name must be provided")
         
-        query = text(f"SELECT {', '.join(selected_columns)} FROM {table_name} LIMIT {limit}")
+        query = text(f"SELECT {', '.join(selected_columns)} FROM {table_name}")# LIMIT {limit}")
         result = connection.execute(query)
         data = result.fetchall()
         return data
@@ -66,7 +66,7 @@ class Database_Connector:
         
         fiter_text = " AND ".join([f"{key} = '{value}'" for key, value in filter_conditions.items()])
         
-        query = text(f"SELECT {', '.join(selected_columns)} FROM {table_name} WHERE {fiter_text} LIMIT {limit}")
+        query = text(f"SELECT {', '.join(selected_columns)} FROM {table_name} WHERE {fiter_text}")# LIMIT {limit}")
         result = connection.execute(query)
         data = result.fetchall()
         return data
