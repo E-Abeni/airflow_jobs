@@ -10,14 +10,14 @@ with DAG(
     
     data_cleaning = BashOperator(
         task_id="data_cleaning",
-        bash_command="'/mnt/c/Users/Guest User/Desktop/airflow_jobs/.venv/bin/python3' '/mnt/c/Users/Guest User/Desktop/airflow_jobs/spark_job_data_cleaning.py'",
+        bash_command="'/home/fusion/airflow_jobs/.venv/bin/python3' '/home/fusion/airflow_jobs/spark_job_data_cleaning.py'",
         dag = dag
     )
 
 
     identity_resolution = BashOperator(
         task_id="identity_resolution",
-        bash_command="'/mnt/c/Users/Guest User/Desktop/airflow_jobs/.venv/bin/python3' '/mnt/c/Users/Guest User/Desktop/airflow_jobs/spark_job_identity_resolution.py'",
+        bash_command="'/home/fusion/airflow_jobs/.venv/bin/python3' '/home/fusion/airflow_jobs/spark_job_identity_resolution.py'",
         dag = dag
     )
 
@@ -25,7 +25,7 @@ with DAG(
 
     user_profile = BashOperator(
         task_id="user_profile",
-        bash_command="'/mnt/c/Users/Guest User/Desktop/airflow_jobs/.venv/bin/python3' '/mnt/c/Users/Guest User/Desktop/airflow_jobs/spark_job_user_profiles.py'",
+        bash_command="'/home/fusion/airflow_jobs/.venv/bin/python3' '/home/fusion/airflow_jobs/spark_job_user_profiles.py'",
         dag = dag
     )
 
@@ -33,28 +33,28 @@ with DAG(
 
     temporal_analysis = BashOperator(
         task_id="temporal_analysis",
-        bash_command="'/mnt/c/Users/Guest User/Desktop/airflow_jobs/.venv/bin/python3' '/mnt/c/Users/Guest User/Desktop/airflow_jobs/spark_job_temporal_analysis.py'",
+        bash_command="'/home/fusion/airflow_jobs/.venv/bin/python3' '/home/fusion/airflow_jobs/spark_job_temporal_analysis.py'",
         dag = dag
     )
 
 
     network_analysis = BashOperator(
         task_id="network_analysis",
-        bash_command="'/mnt/c/Users/Guest User/Desktop/airflow_jobs/.venv/bin/python3' '/mnt/c/Users/Guest User/Desktop/airflow_jobs/spark_job_network_analysis.py'",
+        bash_command="'/home/fusion/airflow_jobs/.venv/bin/python3' '/home/fusion/airflow_jobs/spark_job_network_analysis.py'",
         dag = dag
     )
 
 
     risk_scoring = BashOperator(
         task_id="risk_scoring",
-        bash_command="'/mnt/c/Users/Guest User/Desktop/airflow_jobs/.venv/bin/python3' '/mnt/c/Users/Guest User/Desktop/airflow_jobs/spark_job_risk_scoring.py'",
+        bash_command="'/home/fusion/airflow_jobs/.venv/bin/python3' '/home/fusion/airflow_jobs/spark_job_risk_scoring.py'",
         dag = dag
     )
 
 
     transaction_risk_analysis = BashOperator(
         task_id="transaction_risk_analysis",
-        bash_command="'/mnt/c/Users/Guest User/Desktop/airflow_jobs/.venv/bin/python3' '/mnt/c/Users/Guest User/Desktop/airflow_jobs/spark_job_transaction_risk_analysis.py'",
+        bash_command="'/home/fusion/airflow_jobs/.venv/bin/python3' '/home/fusion/airflow_jobs/spark_job_transaction_risk_analysis.py'",
         dag = dag
     )
 
