@@ -110,6 +110,7 @@ df_person = pd.concat([df_senders, df_beneficiaries], ignore_index=True).drop_du
 # - Probablistic Way:
 #     - Name similarity + DOB similarity + Address similarity + Phone similarity → confidence score
 
+"""
 indexer = rl.Index()
 indexer.block(['sex', 'location']) 
 candidate_links = indexer.index(df_person)
@@ -131,7 +132,7 @@ features['possible_points'] = features.notna().sum(axis=1)
 features['normalized_score'] = features['total_points'] / features['possible_points']
 features['normalized_score'] = features['normalized_score'].fillna(0)
 
-"""features.sort_values(by='normalized_score', ascending=False).to_csv("identity_resolution_scores.csv", index=True)"""
+#features.sort_values(by='normalized_score', ascending=False).to_csv("identity_resolution_scores.csv", index=True)
 
 weights = {
     'birthdate_match': 0.05,
@@ -185,6 +186,9 @@ features_weighted.sort_values(by='similarity_index', ascending=False).to_csv("id
 
 matches_df = features_weighted.loc[features_weighted['similarity_index'] > 0.4, ['similarity_index']].sort_values(by='similarity_index', ascending=False).index
 matches = list(matches_df)
+"""
+
+matches = []
 
 def indexes_to_tuple(group_series):
     return tuple(group_series.tolist())
@@ -201,6 +205,22 @@ matches += (
     ['matches'].tolist()
 )
 
+def clean_matches(matches):
+    cleaned = []
+
+    for match in matches:
+        if len(match) <= 1:
+            continue
+        elif len(match) == 2:
+            cleaned.append(match)
+            continue
+        for i in range(len(match)):
+            for j in range(i + 1, len(match)):
+                pair = (match[i], match[j])
+                if pair not in cleaned and (pair[1], pair[0]) not in cleaned:
+                    cleaned.append(pair)
+
+matches = clean_matches(matches)
 
 G = nx.Graph()
 G.add_edges_from(matches)

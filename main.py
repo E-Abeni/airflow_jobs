@@ -4,7 +4,7 @@ import pandas as pd
 
 class Database_Connector:
     def __init__(self):
-        self.DATABASE_URL = "postgresql+psycopg2://postgres:admin@172.28.112.1:5432/postgres"
+        self.DATABASE_URL = "postgresql+psycopg2://postgres:admin@localhost:5432/postgres"
         self.connection, self.engine = self.get_database_connection(self.DATABASE_URL)
 
 
