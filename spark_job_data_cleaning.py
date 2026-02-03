@@ -36,7 +36,7 @@ df = db_connector.data_to_pandas_df(
 
 string_cols = df.select_dtypes(include=['object', 'string']).columns
 
-df[string_cols] = df[string_cols].apply(lambda x: x.str.lower().strip() if isinstance(x, pd.Series) else x)
+df[string_cols] = df[string_cols].apply(lambda x: x.str.lower().str.strip() if isinstance(x, pd.Series) else x)
 
 # 2. Convert data and time columns to appropirate format and also join transaction date and time columns (transactiondate, transactiontime, birthdate, openeddate, closeddate)
 
@@ -153,15 +153,15 @@ df['beneficiaryphone'] = df['bentelno'].fillna(df['benisentity']).apply(lambda x
 
 
 # 9. Remove duplicates if any
-#df = df.drop_duplicates(subset=['transactionid'], keep='first')
+df = df.drop_duplicates(subset=['transactionid'], keep='first')
 
 # 10. Handle missing values if any
-#df = df.dropna(subset=['transactionid', 'amountinbirr', 'transactiondatetime'])
+df = df.dropna(subset=['transactionid', 'amountinbirr', 'transactiondatetime'])
 
 
 # 11. Remove any decimal palces in account number columns if any and convert to string
-df['accountno'] = df['accountno'].apply(lambda x: str(x).split('.')[0] if isinstance(x, float) else str(x))
-df['benaccountno'] = df['benaccountno'].apply(lambda x: str(x).split('.')[0] if isinstance(x, float) else str(x))
+df['accountno'] = df['accountno'].apply(lambda x: str(x).split('.')[0] if isinstance(x, float) else str(x).split('.')[0])
+df['benaccountno'] = df['benaccountno'].apply(lambda x: str(x).split('.')[0] if isinstance(x, float) else str(x).split('.')[0])
 
 
 # 12. Final cleaned data output (23 columns)
