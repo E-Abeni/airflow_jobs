@@ -48,13 +48,13 @@ person_column_names = db_connector.get_table_columns(table_name=input_table_name
 account_column_names = db_connector.get_table_columns(table_name=input_table_name_3)
 
 df_transactions = db_connector.data_to_pandas_df(
-    db_connector.get_table_data_selected(table_name=input_table_name_1, selected_columns=transactions_column_names, limit=1000),
+    db_connector.get_table_data_selected(table_name=input_table_name_1, selected_columns=transactions_column_names),
     transactions_column_names)
 df_person = db_connector.data_to_pandas_df(
-    db_connector.get_table_data_selected(table_name=input_table_name_2, selected_columns=person_column_names, limit=1000),
+    db_connector.get_table_data_selected(table_name=input_table_name_2, selected_columns=person_column_names),
     person_column_names)
 df_account = db_connector.data_to_pandas_df(
-    db_connector.get_table_data_selected(table_name=input_table_name_3, selected_columns=account_column_names, limit=1000),
+    db_connector.get_table_data_selected(table_name=input_table_name_3, selected_columns=account_column_names),
     account_column_names)
 
 
