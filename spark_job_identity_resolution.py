@@ -255,10 +255,35 @@ df_accounts['accountid'] = df_accounts.apply(lambda row: str(uuid.uuid4()) + f"_
 df_accounts['ownerentity'] = df_accounts['ownername'].map(df_person.drop_duplicates(subset=['personid', 'alias'], keep='first').set_index('alias')['personid'])
 
 
+df_person_unique = df_person[['alias', 'personid']].drop_duplicates(subset=['alias'])
+
+df_accounts = df_accounts.merge(
+    df_person_unique, 
+    left_on='ownername', 
+    right_on='alias', 
+    how='left'
+).drop(columns=['alias']).rename(columns={'personid': 'ownerentity'})
+
+
+
 # 4. Create Final Identity Resolved Transaction Table
 df_transaction = df[[x for x in transaction_columns if x in df.columns]].copy()
-df_transaction['fromentity'] = df_transaction['accountno'].map(df_accounts.drop_duplicates(subset=['accountno'], keep='first').set_index('accountno')['ownerentity'])
-df_transaction['toentity'] = df_transaction['benaccountno'].map(df_accounts.drop_duplicates(subset=['accountno'], keep='first').set_index('accountno')['ownerentity'])
+df_accounts_unique = df_accounts[['accountno', 'ownerentity']].drop_duplicates(subset=['accountno'])
+
+df_transactions = df_transactions.merge(
+    df_accounts_unique, 
+    left_on='accountno', 
+    right_on='accountno', 
+    how='left'
+).drop(columns=['accountno']).rename(columns={'ownerentity': 'fromentity'})
+
+df_transactions = df_transactions.merge(
+    df_accounts_unique, 
+    left_on='benaccountno', 
+    right_on='accountno', 
+    how='left'
+).drop(columns=['accountno']).rename(columns={'ownerentity': 'toentity'})
+
 
 df_transaction = df_transaction[transaction_columns]
 
