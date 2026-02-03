@@ -36,17 +36,17 @@ df = db_connector.data_to_pandas_df(
 
 string_cols = df.select_dtypes(include=['object', 'string']).columns
 
-df[string_cols] = df[string_cols].apply(lambda x: x.str.lower().str.strip() if isinstance(x, pd.Series) else x)
+df[string_cols] = df[string_cols].apply(lambda x: x.str.lower().strip() if isinstance(x, pd.Series) else x)
 
 # 2. Convert data and time columns to appropirate format and also join transaction date and time columns (transactiondate, transactiontime, birthdate, openeddate, closeddate)
 
-df['transactiondate'] = pd.to_datetime(df['transactiondate'], errors='coerce')
-df['transactiontime'] = pd.to_datetime(df['transactiontime'], format='%H:%M:%S', errors='coerce')
+df['transactiondate'] = pd.to_datetime(df['transactiondate'].fillna(pd.NaT), errors='coerce')
+df['transactiontime'] = pd.to_datetime(df['transactiontime'].fillna(pd.NaT), format='%H:%M:%S', errors='coerce')
 df['transactiondatetime'] = df['transactiondate'] + pd.to_timedelta(df['transactiontime'].dt.hour, unit='h') + pd.to_timedelta(df['transactiontime'].dt.minute, unit='m')
 df['transactiondatetime'] = df['transactiondatetime'].dt.tz_localize(None)
-df['birthdate'] = pd.to_datetime(df['birthdate'], errors='coerce').dt.date
-df['openeddate'] = pd.to_datetime(df['openeddate'], errors='coerce').dt.date
-df['closeddate'] = pd.to_datetime(df['closeddate'], errors='coerce').dt.date
+df['birthdate'] = pd.to_datetime(df['birthdate'].fillna(pd.NaT), errors='coerce').dt.date
+df['openeddate'] = pd.to_datetime(df['openeddate'].fillna(pd.NaT), errors='coerce').dt.date
+df['closeddate'] = pd.to_datetime(df['closeddate'].fillna(pd.NaT), errors='coerce').dt.date
 
 # 3. Remove extreme dates
 
