@@ -267,14 +267,14 @@ df_accounts = df_accounts.merge(
 df_transaction = df[[x for x in transaction_columns if x in df.columns]].copy()
 df_accounts_unique = df_accounts[['accountno', 'ownerentity']].drop_duplicates(subset=['accountno'])
 
-df_transactions = df_transactions.merge(
+df_transaction = df_transaction.merge(
     df_accounts_unique, 
     left_on='accountno', 
     right_on='accountno', 
     how='left'
 ).drop(columns=['accountno']).rename(columns={'ownerentity': 'fromentity'})
 
-df_transactions = df_transactions.merge(
+df_transaction = df_transaction.merge(
     df_accounts_unique, 
     left_on='benaccountno', 
     right_on='accountno', 
